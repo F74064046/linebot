@@ -7,30 +7,49 @@ class TocMachine(GraphMachine):
     def __init__(self, **machine_configs):
         self.machine = GraphMachine(model=self, **machine_configs)
 
-    def is_going_to_state1(self, event):
+    def is_going_to_start(self, event):
         text = event.message.text
-        return text.lower() == "go to state1"
+        return text.lower() == "start"
 
-    def is_going_to_state2(self, event):
+    def is_going_to_guess(self, event):
         text = event.message.text
-        return text.lower() == "go to state2"
+        return text.lower() == "ok"
 
-    def on_enter_state1(self, event):
-        print("I'm entering state1")
+    def is_going_to_check(self, event):
+        text = event.message.text
+        if text.isdigit():
+            return True
+        else
+            return False
+
+    
+
+    def on_enter_start(self, event):
+        print("I'm entering start")
 
         reply_token = event.reply_token
-        send_text_message(reply_token, "Trigger state1")
-        self.go_back()
+        send_text_message(reply_token, "規則:\n謎底為一個四位數號碼(數字不重複)\n機器人會回復線索,以?A?B形式呈現，直到答對(4A0B)為止。\n(例如:當謎底為8123，而猜謎者猜1052時，出題者必須提示0A2B)")
 
-    def on_exit_state1(self):
-        print("Leaving state1")
 
-    def on_enter_state2(self, event):
-        print("I'm entering state2")
+    def on_exit_start(self):
+        print("Leaving start")
+
+
+    def on_enter_guess(self, event):
+        print("I'm entering guess")
 
         reply_token = event.reply_token
-        send_text_message(reply_token, "Trigger state2")
-        self.go_back()
+        send_text_message(reply_token, "請輸入一個四位數號碼,數字不得重複")
 
-    def on_exit_state2(self):
-        print("Leaving state2")
+    def on_exit_guess(self):
+        print("Leaving guess")
+    
+    def on_enter_check(self, event):
+        print("I'm entering check")
+
+        reply_token = event.reply_token
+        send_text_message(reply_token, "right")
+        self.goto_user(event)
+
+    def on_exit_check(self):
+        print("Leaving check")
