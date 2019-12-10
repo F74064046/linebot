@@ -10,73 +10,26 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage
 from fsm import TocMachine
 from utils import send_text_message
 
-import sys
-import datetime
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials as SAC
 
 load_dotenv()
 
 
 machine = TocMachine(
-    states=["user", "m_or_o", "menu","order","howmany","conti","o_or_s","show"],
+    states=["user", "state1", "state2"],
     transitions=[
         {
             "trigger": "advance",
             "source": "user",
-            "dest": "m_or_o",
-            "conditions": "is_going_to_m_or_o",
-        },
-        {
-            "trigger": "go_menu",
-            "source": "m_or_o",
-            "dest": "menu",
-        },
-        {
-            "trigger": "go_order",
-            "source": "m_or_o",
-            "dest": "order",
+            "dest": "state1",
+            "conditions": "is_going_to_state1",
         },
         {
             "trigger": "advance",
-            "source": "menu",
-            "dest": "order",
-            "conditions": "is_going_to_order",
+            "source": "user",
+            "dest": "state2",
+            "conditions": "is_going_to_state2",
         },
-        {
-            "trigger": "advance",
-            "source": "order",
-            "dest": "howmany",
-            #"conditions": "is_going_to_howmany",
-        },
-        {
-            "trigger": "advance",
-            "source": "howmany",
-            "dest": "conti",
-            #"conditions": "is_going_to_conti",
-        },
-        {
-            "trigger": "advance",
-            "source": "conti",
-            "dest": "o_or_s",
-            "conditions": "is_going_to_o_or_s",
-        },
-        {
-            "trigger": "go_order",
-            "source": "o_or_s",
-            "dest": "order",
-        },
-        {
-            "trigger": "go_show",
-            "source": "o_or_s",
-            "dest": "show",
-        },
-        {
-            "trigger": "go_back", 
-            "source": "show",
-            #"source": ["menu","order","howmany","conti","show"], 
-            "dest": "user",
-        },
+        {"trigger": "go_back", "source": ["state1", "state2"], "dest": "user"},
     ],
     initial="user",
     auto_transitions=False,
@@ -153,28 +106,6 @@ def webhook_handler():
         response = machine.advance(event)
         if response == False:
             send_text_message(event.reply_token, "Not Entering any State")
-
-        pass
-        #GDriveJSON就輸入下載下來Json檔名稱
-        #GSpreadSheet是google試算表名稱
-        GDriveJSON = 'linebot-0561acbdf0d0.json'
-        GSpreadSheet = 'pythonlinebot'
-        while True:
-            try:
-                scope = ['https://spreadsheets.google.com/feeds']
-                key = SAC.from_json_keyfile_name(GDriveJSON, scope)
-                gc = gspread.authorize(key)
-                worksheet = gc.open(GSpreadSheet).sheet1
-            except Exception as ex:
-                print('無法連線Google試算表', ex)
-                sys.exit(1)
-            textt=""
-            textt+=event.message.text
-            if textt!="":
-                worksheet.append_row((datetime.datetime.now(), textt))
-                print('新增一列資料到試算表' ,GSpreadSheet)
-                return textt    
-
 
     return "OK"
 
