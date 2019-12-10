@@ -59,8 +59,8 @@ class TocMachine(GraphMachine):
 
     def on_enter_menu(self, event):
         text = event.message.text
-        if text.lower() == "bye":
-            self.go_back(event)
+        #if text.lower() == "bye":
+        self.go_back(event)
         
         print("I'm entering menu")
 
