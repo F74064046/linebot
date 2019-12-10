@@ -41,6 +41,8 @@ class TocMachine(GraphMachine):
 
     def on_enter_guess(self, event):
         print("I'm entering guess")
+        print("answer is")
+        print(anslist)
 
         reply_token = event.reply_token
         send_text_message(reply_token, "請輸入一個四位數號碼,數字不得重複")
@@ -48,7 +50,29 @@ class TocMachine(GraphMachine):
     
     def on_enter_check(self, event):
         print("I'm entering check")
+        print("answer is")
+        print(anslist)
 
-        reply_token = event.reply_token
-        send_text_message(reply_token, "right")
-        self.goto_user(event)
+        
+        A = 0
+        B = 0
+        text = event.message.text
+        Number = text.lower()
+        for i in range(4):        #算出相同位置數字相等的數字有幾個
+            if (str(anslist)[i] == Number[i]):
+            A += 1
+        for j in range(4): #算出數字相等的有幾個
+            for k in range(4):
+                if (str(Answer)[j] == Number[k]):
+                B += 1 
+        B = B-A
+        if A==4 and B ==0:
+            s=str(A)"A"str(B)"B,you are great"
+            reply_token = event.reply_token
+            send_text_message(reply_token,s)
+            self.goto_user(event)
+        else:
+            s=str(A)"A"str(B)"B"
+            reply_token = event.reply_token
+            send_text_message(reply_token,s)
+            self.goto_guess(event)
