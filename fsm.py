@@ -19,7 +19,7 @@ class TocMachine(GraphMachine):
         text = event.message.text
         if text.isdigit():
             return True
-        else
+        else:
             return False
 
     
