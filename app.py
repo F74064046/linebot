@@ -14,21 +14,64 @@ load_dotenv()
 
 
 machine = TocMachine(
-    states=["user", "state1", "state2"],
+    states=["user", "m_or_o", "menu","order","howmany","conti","o_or_s","show"],
     transitions=[
         {
             "trigger": "advance",
             "source": "user",
-            "dest": "state1",
-            "conditions": "is_going_to_state1",
+            "dest": "m_or_o",
+            "conditions": "is_going_to_m_or_o",
+        },
+        {
+            "trigger": "go_menu",
+            "source": "m_or_o",
+            "dest": "menu",
+        },
+        {
+            "trigger": "go_order",
+            "source": "m_or_o",
+            "dest": "order",
         },
         {
             "trigger": "advance",
-            "source": "user",
-            "dest": "state2",
-            "conditions": "is_going_to_state2",
+            "source": "menu",
+            "dest": "order",
+            "conditions": "is_going_to_order",
         },
-        {"trigger": "go_back", "source": ["state1", "state2"], "dest": "user"},
+        {
+            "trigger": "advance",
+            "source": "order",
+            "dest": "howmany",
+            #"conditions": "is_going_to_howmany",
+        },
+        {
+            "trigger": "advance",
+            "source": "howmany",
+            "dest": "conti",
+            #"conditions": "is_going_to_conti",
+        },
+        {
+            "trigger": "advance",
+            "source": "conti",
+            "dest": "o_or_s",
+            "conditions": "is_going_to_o_or_s",
+        },
+        {
+            "trigger": "go_order",
+            "source": "o_or_s",
+            "dest": "order",
+        },
+        {
+            "trigger": "go_show",
+            "source": "o_or_s",
+            "dest": "show",
+        },
+        {
+            "trigger": "go_back", 
+            "source": [menu","order","howmany","conti","show"], 
+            "dest": "user",
+            "conditions": "is_go_back",
+        },
     ],
     initial="user",
     auto_transitions=False,
