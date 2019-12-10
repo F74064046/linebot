@@ -45,7 +45,7 @@ class TocMachine(GraphMachine):
         print("I'm entering o_or_s")
 
         text = event.message.text
-        if text.lower() == "show":
+        if text.lower() == "ok":
             self.go_show(event)
         elif text.lower() == "order":
             self.go_order(event)
