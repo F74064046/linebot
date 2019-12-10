@@ -52,8 +52,6 @@ class TocMachine(GraphMachine):
 
 
 
-    def on_exit_user(self):
-        print("Leaving user")
     def on_exit_m_or_o(self):
         print("Leaving m_or_o")
 
