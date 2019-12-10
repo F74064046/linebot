@@ -69,12 +69,12 @@ class TocMachine(GraphMachine):
                     B = B+1 
         B = B-A
         if A==4 and B ==0:
-            t = Template('$A,A,$B,B')
+            t = '%dA%dB'%(A,B)
             reply_token = event.reply_token
             send_text_message(reply_token,t)
             self.goto_user(event)
         else:
-            t = Template('$A,A,$B,B')
+            t = '%dA%dB'%(A,B)
             reply_token = event.reply_token
             send_text_message(reply_token,t)
             self.goto_guess(event)
