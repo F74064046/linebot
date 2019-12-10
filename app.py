@@ -20,7 +20,7 @@ machine = TocMachine(
         {
             "trigger": "advance",
             "source": "user",
-            "dest": "state1",
+            "dest": "start",
             "conditions": "is_going_to_start",
         },
         {
