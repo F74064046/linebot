@@ -25,6 +25,7 @@ class TocMachine(GraphMachine):
         else:
             return False
     def is_go_back(self, event):
+        print("try to go back")
         text = event.message.text
         return text.lower() == "bye"
 
@@ -54,7 +55,6 @@ class TocMachine(GraphMachine):
 
 
     def on_enter_user(self, event):
-        self.go_back(event)
 
         print("I'm entering user")
 
@@ -95,7 +95,7 @@ class TocMachine(GraphMachine):
 
     def on_enter_show(self, event):
         self.go_back(event)
-        
+
         print("I'm entering conti")
 
         reply_token = event.reply_token
