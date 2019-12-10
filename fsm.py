@@ -60,11 +60,11 @@ class TocMachine(GraphMachine):
         Number = text.lower()
         for i in range(4):        #算出相同位置數字相等的數字有幾個
             if (str(anslist)[i] == Number[i]):
-            A = A+1
+                A = A+1
         for j in range(4): #算出數字相等的有幾個
             for k in range(4):
                 if (str(Answer)[j] == Number[k]):
-                B = B+1 
+                    B = B+1 
         B = B-A
         if A==4 and B ==0:
             s=str(A)"A"str(B)"B,you are great"
