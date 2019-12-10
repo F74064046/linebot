@@ -63,7 +63,7 @@ class TocMachine(GraphMachine):
                 A = A+1
         for j in range(4): #算出數字相等的有幾個
             for k in range(4):
-                if (str(Answer)[j] == Number[k]):
+                if (str(anslist)[i] == Number[k]):
                     B = B+1 
         B = B-A
         if A==4 and B ==0:
