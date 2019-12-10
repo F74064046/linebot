@@ -38,7 +38,7 @@ class TocMachine(GraphMachine):
         text = event.message.text
         if text.lower() == "menu":
             self.go_menu()
-        elif text.lower() == "order"
+        elif text.lower() == "order":
             self.go_order()
 
     def on_enter_o_or_s(self, event):
@@ -47,7 +47,7 @@ class TocMachine(GraphMachine):
         text = event.message.text
         if text.lower() == "show":
             self.go_show()
-        elif text.lower() == "order"
+        elif text.lower() == "order":
             self.go_order()
 
 
