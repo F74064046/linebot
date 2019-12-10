@@ -37,18 +37,18 @@ class TocMachine(GraphMachine):
 
         text = event.message.text
         if text.lower() == "menu":
-            self.go_menu()
+            self.go_menu(event)
         elif text.lower() == "order":
-            self.go_order()
+            self.go_order(event)
 
     def on_enter_o_or_s(self, event):
         print("I'm entering o_or_s")
 
         text = event.message.text
         if text.lower() == "show":
-            self.go_show()
+            self.go_show(event)
         elif text.lower() == "order":
-            self.go_order()
+            self.go_order(event)
 
 
 
@@ -91,5 +91,5 @@ class TocMachine(GraphMachine):
         reply_token = event.reply_token
         send_text_message(reply_token, "show")
 
-        self.go_back()
+        self.go_back(event)
 
