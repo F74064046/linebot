@@ -28,11 +28,7 @@ class TocMachine(GraphMachine):
         print("I'm entering start")
 
         reply_token = event.reply_token
-        send_text_message(reply_token, "規則:\n謎底為一個四位數號碼(數字不重複)\n機器人會回復線索,以?A?B形式呈現，直到答對(4A0B)為止。\n(例如:當謎底為8123，而猜謎者猜1052時，出題者必須提示0A2B)")
-
-
-    def on_exit_start(self):
-        print("Leaving start")
+        send_text_message(reply_token, "請輸入 ok 開始玩遊戲!\n\n規則:\n謎底為一個四位數號碼(數字不重複)\n機器人會回復線索,以?A?B形式呈現，直到答對(4A0B)為止。\n(例如:當謎底為8123，而猜謎者猜1052時，出題者必須提示0A2B)")
 
 
     def on_enter_guess(self, event):
@@ -41,8 +37,6 @@ class TocMachine(GraphMachine):
         reply_token = event.reply_token
         send_text_message(reply_token, "請輸入一個四位數號碼,數字不得重複")
 
-    def on_exit_guess(self):
-        print("Leaving guess")
     
     def on_enter_check(self, event):
         print("I'm entering check")
@@ -50,6 +44,3 @@ class TocMachine(GraphMachine):
         reply_token = event.reply_token
         send_text_message(reply_token, "right")
         self.goto_user(event)
-
-    def on_exit_check(self):
-        print("Leaving check")
