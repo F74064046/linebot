@@ -121,7 +121,12 @@ def webhook_handler():
         print(f"REQUEST BODY: \n{body}")
         response = machine.advance(event)
         if response == False:
-            send_text_message(event.reply_token, "你是不是輸入錯誤了><")
+            if machine.state=="user":
+                send_text_message(event.reply_token, "你是不是輸入錯誤了><\n請輸入 start 開始遊戲說明")
+            elif machine.state=="start":
+                send_text_message(event.reply_token, "你是不是輸入錯誤了><\n請輸入 ok 開始玩遊戲!")
+            elif machine.state=="guess":
+                send_text_message(event.reply_token, "無效的答案~請輸入數字>///<")
 
     return "OK"
 

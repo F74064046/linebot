@@ -2,6 +2,10 @@ from transitions.extensions import GraphMachine
 
 from utils import send_text_message
 
+import random
+
+n_list=[0,1,2,3,4,5,6,7,8,9]
+anslist=[1,2,7,4]
 
 class TocMachine(GraphMachine):
     def __init__(self, **machine_configs):
@@ -26,6 +30,10 @@ class TocMachine(GraphMachine):
 
     def on_enter_start(self, event):
         print("I'm entering start")
+
+        anslist = random.sample(n_list,4)
+        print("answer is")
+        print(anslist)
 
         reply_token = event.reply_token
         send_text_message(reply_token, "請輸入 ok 開始玩遊戲!\n\n規則:\n謎底為一個四位數號碼(數字不重複)\n機器人會回復線索,以?A?B形式呈現，直到答對(4A0B)為止。\n(例如:當謎底為8123，而猜謎者猜1052時，出題者必須提示0A2B)")
