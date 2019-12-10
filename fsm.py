@@ -7,87 +7,30 @@ class TocMachine(GraphMachine):
     def __init__(self, **machine_configs):
         self.machine = GraphMachine(model=self, **machine_configs)
 
-    def is_going_to_m_or_o(self, event):
+    def is_going_to_state1(self, event):
         text = event.message.text
-        if text.lower() == "menu":
-            return True
-        elif text.lower() == "order":
-            return True
-        else:
-            return False
+        return text.lower() == "go to state1"
 
-    def is_going_to_o_or_s(self, event):
+    def is_going_to_state2(self, event):
         text = event.message.text
-        if text.lower() == "order":
-            return True
-        elif text.lower() == "ok":
-            return True
-        else:
-            return False
+        return text.lower() == "go to state2"
 
-    def is_going_to_order(self, event):
-        text = event.message.text
-        return text.lower() == "order"
-
-    def on_enter_m_or_o(self, event):
-        print("I'm entering m_or_o")
-
-        text = event.message.text
-        if text.lower() == "menu":
-            self.go_menu(event)
-        elif text.lower() == "order":
-            self.go_order(event)
-
-    def on_enter_o_or_s(self, event):
-        print("I'm entering o_or_s")
-
-        text = event.message.text
-        if text.lower() == "ok":
-            self.go_show(event)
-        elif text.lower() == "order":
-            self.go_order(event)
-
-
-
-
-    def on_enter_user(self, event):
-        print("I'm entering user")
+    def on_enter_state1(self, event):
+        print("I'm entering state1")
 
         reply_token = event.reply_token
-        send_text_message(reply_token, "hi~\nreply menu if you want to watch the menu\nreply order if you want to order something")
+        send_text_message(reply_token, "Trigger state1")
+        self.go_back()
 
-    def on_enter_menu(self, event):
-        print("I'm entering menu")
+    def on_exit_state1(self):
+        print("Leaving state1")
 
-        reply_token = event.reply_token
-        send_text_message(reply_token, "A,B,C\nreply order if you want to order something\nreply cancel if you want to go back")
-    
-    def on_enter_order(self, event):
-        print("I'm entering order")
+    def on_enter_state2(self, event):
+        print("I'm entering state2")
 
         reply_token = event.reply_token
-        send_text_message(reply_token, "you can enter what you want to eat.")
-    
-    def on_enter_howmany(self, event):
-        print("I'm entering howmany")
+        send_text_message(reply_token, "Trigger state2")
+        self.go_back()
 
-        reply_token = event.reply_token
-        send_text_message(reply_token, "how many?")
-
-    def on_enter_conti(self, event):
-        print("I'm entering conti")
-
-        reply_token = event.reply_token
-        send_text_message(reply_token, "reply order if you want to continue to order something\nreply ok if you have finished your order")
-
-    def on_enter_show(self, event):
-        
-
-        print("I'm entering conti")
-
-        reply_token = event.reply_token
-        send_text_message(reply_token, "show")
-
-        self.go_back(event)
-
-
+    def on_exit_state2(self):
+        print("Leaving state2")
