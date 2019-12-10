@@ -58,6 +58,7 @@ class TocMachine(GraphMachine):
         send_text_message(reply_token, "hi~\nreply menu if you want to watch the menu\nreply order if you want to order something")
 
     def on_enter_menu(self, event):
+        text = event.message.text
         if text.lower() == "bye":
             self.go_back(event)
         
@@ -67,6 +68,7 @@ class TocMachine(GraphMachine):
         send_text_message(reply_token, "A,B,C\nreply order if you want to order something\nreply cancel if you want to go back")
     
     def on_enter_order(self, event):
+        text = event.message.text
         if text.lower() == "bye":
             self.go_back(event)
 
@@ -76,6 +78,7 @@ class TocMachine(GraphMachine):
         send_text_message(reply_token, "you can enter what you want to eat.")
     
     def on_enter_howmany(self, event):
+        text = event.message.text
         if text.lower() == "bye":
             self.go_back(event)
 
@@ -85,6 +88,7 @@ class TocMachine(GraphMachine):
         send_text_message(reply_token, "how many?")
 
     def on_enter_conti(self, event):
+        text = event.message.text
         if text.lower() == "bye":
             self.go_back(event)
 
