@@ -70,7 +70,6 @@ machine = TocMachine(
             "trigger": "go_back", 
             "source": ["menu","order","howmany","conti","show"], 
             "dest": "user",
-            "conditions": "is_go_back",
         },
     ],
     initial="user",
