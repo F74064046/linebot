@@ -54,40 +54,51 @@ class TocMachine(GraphMachine):
 
 
     def on_enter_user(self, event):
+        self.go_back(event)
+
         print("I'm entering user")
 
         reply_token = event.reply_token
         send_text_message(reply_token, "hi~\nreply menu if you want to watch the menu\nreply order if you want to order something")
 
     def on_enter_menu(self, event):
+        self.go_back(event)
+        
         print("I'm entering menu")
 
         reply_token = event.reply_token
         send_text_message(reply_token, "A,B,C\nreply order if you want to order something\nreply cancel if you want to go back")
     
     def on_enter_order(self, event):
+        self.go_back(event)
+
         print("I'm entering order")
 
         reply_token = event.reply_token
         send_text_message(reply_token, "you can enter what you want to eat.")
     
     def on_enter_howmany(self, event):
+        self.go_back(event)
+
         print("I'm entering howmany")
 
         reply_token = event.reply_token
         send_text_message(reply_token, "how many?")
 
     def on_enter_conti(self, event):
+        self.go_back(event)
+
         print("I'm entering conti")
 
         reply_token = event.reply_token
         send_text_message(reply_token, "reply order if you want to continue to order something\nreply ok if you have finished your order")
 
     def on_enter_show(self, event):
+        self.go_back(event)
+        
         print("I'm entering conti")
 
         reply_token = event.reply_token
         send_text_message(reply_token, "show")
 
-        self.go_back(event)
 
