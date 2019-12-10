@@ -69,12 +69,12 @@ class TocMachine(GraphMachine):
                     B = B+1 
         B = B-A
         if A==4 and B ==0:
-            t = '%dA%dB'%(A,B)
+            t = str(A)+'A'+str(B)+'B'
             reply_token = event.reply_token
             send_text_message(reply_token,t)
             self.goto_user(event)
         else:
-            t = '%dA%dB'%(A,B)
+            t = str(A)+'A'+str(B)+'B'
             reply_token = event.reply_token
             send_text_message(reply_token,t)
             self.goto_guess(event)
