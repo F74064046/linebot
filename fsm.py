@@ -4,6 +4,8 @@ from utils import send_text_message
 
 import random
 
+from string import Template
+
 n_list=[0,1,2,3,4,5,6,7,8,9]
 anslist=[1,2,7,4]
 
@@ -67,14 +69,12 @@ class TocMachine(GraphMachine):
                     B = B+1 
         B = B-A
         if A==4 and B ==0:
-            s='{AA}A{BB}B'
-            s.format(AA=A,BB=B)
+            t = Template('$A,A,$B,B')
             reply_token = event.reply_token
-            send_text_message(reply_token,s)
+            send_text_message(reply_token,t)
             self.goto_user(event)
         else:
-            s='{AA}A{BB}B'
-            s.format(AA=A,BB=B)
+            t = Template('$A,A,$B,B')
             reply_token = event.reply_token
-            send_text_message(reply_token,s)
+            send_text_message(reply_token,t)
             self.goto_guess(event)
