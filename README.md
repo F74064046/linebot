@@ -1,10 +1,10 @@
 # linebot
 ![image](https://github.com/F74064046/linebot/blob/master/fsm.png)
 
-##目的:
+## 目的:
 無聊的時候可以用這個玩幾A幾B打發時間
 
-##使用方法:
+## 使用方法:
 輸入任意文字即可開始
 依照機器人所說的輸入正確input來開始遊戲
 
