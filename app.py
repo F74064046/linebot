@@ -36,6 +36,11 @@ machine = TocMachine(
             "conditions": "is_going_to_check",
         },
         {
+            "trigger": "advance",
+            "source": "check",
+            "dest": "guess",
+        },
+        {
             "trigger": "goto_guess",
             "source": "check",
             "dest": "guess",
