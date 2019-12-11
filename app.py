@@ -15,21 +15,37 @@ load_dotenv()
 
 
 machine = TocMachine(
-    states=["user", "state1", "state2"],
+    states=["user", "start", "guess","check"],
     transitions=[
         {
             "trigger": "advance",
             "source": "user",
-            "dest": "state1",
-            "conditions": "is_going_to_state1",
+            "dest": "start",
+            "conditions": "is_going_to_start",
         },
         {
             "trigger": "advance",
-            "source": "user",
-            "dest": "state2",
-            "conditions": "is_going_to_state2",
+            "source": "start",
+            "dest": "guess",
+            "conditions": "is_going_to_guess",
         },
-        {"trigger": "go_back", "source": ["state1", "state2"], "dest": "user"},
+        {
+            "trigger": "advance",
+            "source": "guess",
+            "dest": "check",
+            "conditions": "is_going_to_check",
+        },
+        {
+            "trigger": "goto_guess",
+            "source": "check",
+            "dest": "guess",
+        },
+        {
+            "trigger": "goto_user",
+            "source": "check",
+            "dest": "user",
+        },
+        
     ],
     initial="user",
     auto_transitions=False,
@@ -105,7 +121,13 @@ def webhook_handler():
         print(f"REQUEST BODY: \n{body}")
         response = machine.advance(event)
         if response == False:
-            send_text_message(event.reply_token, "Not Entering any State")
+            if machine.state=="user":
+                send_text_message(event.reply_token, "你是不是輸入錯誤了><\n請輸入 start 開始遊戲說明")
+            elif machine.state=="start":
+                send_text_message(event.reply_token, "你是不是輸入錯誤了><\n請輸入 ok 開始玩遊戲!")
+            elif machine.state=="guess":
+                send_text_message(event.reply_token, "無效的答案~請輸入數字>///<")
+
     return "OK"
 
 
